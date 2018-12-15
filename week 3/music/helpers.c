@@ -46,7 +46,7 @@ int frequency(string note)
         else if (note[1] == 'b') freq /= power;
     }
 
-    return freq;
+    return round(freq);
 }
 
 // Determines whether a string represents a rest
