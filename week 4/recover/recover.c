@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 
     // try file card
     FILE *card = fopen(argv[1], "r");
-    if (card == NULL)
+    if (!card)
     {
         fprintf(stderr, "file can't be open\n");
         return 2;
@@ -50,7 +50,7 @@ void recover(FILE *card)
             // write new name
             sprintf(filename, "%03i.jpg", count);
             // close previous file
-            if (img != NULL)
+			if (img)
                 fclose(img);
             // create new file with new name
             img = fopen(filename, "w");
@@ -58,12 +58,12 @@ void recover(FILE *card)
             count++;
         }
         // already found JPEG
-        if (img != NULL)
+		if (img)
             fwrite(buffer, SIZE, 1, img);
     }
 
     // close files
-    if (img != NULL)
+	if (img)
         fclose(img);
     fclose(card);
 }
