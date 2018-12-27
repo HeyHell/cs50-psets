@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <div class="col">
+        <h1 class="pl-3 mt-3">Compare two files</h1>
+
+        <form action="/compare" enctype="multipart/form-data" method="post">
+
+            <!-- Select files -->
+            <div class="mb-3">
+                <h3 class="mb-4">Upload two files for comparison:</h3>
+                <input type="file" class="d-block mb-3" name="file1" autofocus>
+                <input type="file" class="d-block" name="file2">
+            </div>
+
+            <!-- Select an algorithm -->
+            <div class="mb-3">
+                <h3 class="mb-4">Compare files by:</h3>
+
+                <div class="d-block">
+                    <input type="radio" id="lines-algorithm" name="algorithm" value="lines" checked>
+                    <label class="custom-control-label" for="lines-algorithm">Lines</label>
+                </div>
+
+                <div class="d-block">
+                    <input type="radio" id="sentences-algorithm" name="algorithm" value="sentences">
+                    <label class="custom-control-label" for="sentences-algorithm">Sentences</label>
+                </div>
+
+                <div class="d-block">
+                    <input type="radio" id="substrings-algorithm" name="algorithm" value="substrings">
+                    <label class="custom-control-label mr-4" for="substrings-algorithm">Substrings</label>
+                    <input type="number" id="length" name="length" placeholder="Length" disabled>
+                </div>
+            </div>
+
+            <input type="submit" id="btn" class="btn btn-primary" name="algorithm" value="Compare">
+
+            <script type = "text/javascript"
+                src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+            </script>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $("#length").prop('disabled',
+                                $('input[name=algorithm]:checked').val() !== "substrings");
+                    $('input[name=algorithm]').change(function() {
+                            $("#length").prop('disabled',
+                                $('input[name=algorithm]:checked').val() !== "substrings");
+                    });
+                });
+            </script>
+        </form>
+    </div>
+
+{% endblock %}
