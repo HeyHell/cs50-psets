@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+    <table class="table">
+        <thead class="thead-dark">
+            <th scope="col">Type</th>
+            <th scope="col">Symbol</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total price</th>
+            <th scope="col">Date</th>
+        </thead>
+
+        <tbody>
+            {% for purchase in purchases %}
+                <tr>
+                    <td>
+                        {%- if purchase["quantity"] < 0 %}Sell
+                        {% else %}Buy{% endif %}
+                    </td>
+                    <td>{{ purchase["symbol"] }}</td>
+                    <td>{{ purchase["quantity"]|abs }}</td>
+                    <td>{{ (purchase["total"])|usd }}</td>
+                    <td>{{ purchase["datetime"] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+{% endblock %}

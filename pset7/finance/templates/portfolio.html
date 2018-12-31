@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+    <table class="table">
+
+        <thead class="thead-dark">
+            <tr>
+              <th scope="col">Stocks</th>
+              <th scope="col">Shares</th>
+              <th scope="col">Price</th>
+              <th scope="col">Total</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for purchase in purchases %}
+
+                <tr>
+                    <td>{{ purchase["symbol"] }} </td>
+                    <td>{{ purchase["total_quantity"] }} </td>
+                    <td>{{ usd(quotes[purchase["symbol"]]) }} </td>
+                    <td><b>{{ usd(quotes[purchase["symbol"]] * purchase["total_quantity"]) }}</b></td>
+                </tr>
+
+            {% endfor %}
+
+            <tr>
+                <td>Cash</td>
+                <td colspan="2"></td>
+                <td><b>{{ usd(cash) }}</b></td>
+            </tr>
+        </tbody>
+
+    </table>
+{% endblock %}

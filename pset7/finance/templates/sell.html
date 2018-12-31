@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+    {% if stocks|length > 0 %}
+        <form action="/sell" method="post">
+            <div class="form-group">
+                <select class="custom-select mr-sm-2" name="symbol" autofocus>
+                    {% for stock in stocks %}
+
+                        <option value={{ stock["symbol"] }}>{{ stock["symbol"] }}</option>
+
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="number" min="1" class="form-control" name="shares" placeholder="Shares"/>
+            </div>
+            <button class="btn btn-primary" type="submit">Sell</button>
+        </form>
+    {% else %}
+        <p>You have nothing to sell.</p>
+    {% endif %}
+{% endblock %}
